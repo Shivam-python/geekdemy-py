@@ -1,4 +1,4 @@
-# Metro-X
+# Geekdemy-Py
 
 This is a solution to GeekTrust backend design problem : [Geekdemy](https://www.geektrust.com/coding/detailed/geekdemy)
 
