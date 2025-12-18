@@ -39,18 +39,8 @@ class Purchase:
         total = sub_total
         pro_membership_discount = 0
         coupon_discount = 0
-        if self.discount_coupon == "B4G1":
-            coupon_discount = self.items_list[0]['unit_price']
-            freebie = True
-        else:
-            coupon_discount = total*DISOUNT_PRICE.get(self.discount_coupon)            
-        
-        total -= coupon_discount
 
-        enrollment = self.fetch_enrollment_fee(total)
-        total+=enrollment
-        sub_total+=enrollment
-
+        # premium membership discount
         if self.pro_member:
             
             start = 0
@@ -65,6 +55,19 @@ class Purchase:
             
             sub_total += PRO_MEMBERSHIP_FEES
             total += PRO_MEMBERSHIP_FEES
+
+        # coupon discount
+        if self.discount_coupon == "B4G1":
+            coupon_discount = self.items_list[0]['unit_price']
+            freebie = True
+        else:
+            coupon_discount = total*DISOUNT_PRICE.get(self.discount_coupon)            
+        
+        total -= coupon_discount
+
+        enrollment = self.fetch_enrollment_fee(total)
+        total+=enrollment
+        sub_total+=enrollment
 
         bill = {"SUB_TOTAL": round(sub_total,2), "COUPON_DISCOUNT": round(coupon_discount,2), "TOTAL_PRO_DISCOUNT": round(pro_membership_discount,2), "TOTAL": round(total,2),"ENROLLMENT_FEE": round(enrollment,2)}
         if self.pro_member:
